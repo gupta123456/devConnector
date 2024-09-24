@@ -5,18 +5,21 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server":"nodemon server.js"
+    "server": "nodemon server.js"
   },
   "author": "Anuj Gupta",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
+    "config": "^3.3.12",
     "express": "^4.19.2",
+    "gravatar": "^1.8.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.6.1",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
+    "request": "^2.88.2",
     "validator": "^13.12.0"
   },
   "devDependencies": {
