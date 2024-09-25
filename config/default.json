@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://guptaanuj242:admin123@devconnector.yxlgl.mongodb.net/"
+    "mongoURI": "mongodb+srv://guptaanuj242:admin123@devconnector.yxlgl.mongodb.net/",
+    "jwtSecret":"myjwttoken"
 }
