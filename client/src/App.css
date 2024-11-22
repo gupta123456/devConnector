@@ -582,3 +582,40 @@ button {
   right: 2rem;
   display: inline-block;
 }
+
+
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.app-container.dark {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.app-container.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.navbar.bg-dark {
+  background-color: #333;
+}
+
+.navbar.bg-light {
+  background-color: #f9f9f9;
+}
+
+.btn-dark-mode-toggle {
+  background: none;
+  border: 1px solid #ccc;
+  color: inherit;
+  cursor: pointer;
+}
+
