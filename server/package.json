@@ -5,15 +5,13 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "server": "nodemon server",
-    "client": "npm start"
+    "server": "nodemon server"
   },
   "author": "Brad Traversy",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.0",
     "bcryptjs": "^2.4.3",
-    "client": "file:client",
     "config": "^3.3.3",
     "express": "^4.17.1",
     "express-validator": "^6.8.1",
