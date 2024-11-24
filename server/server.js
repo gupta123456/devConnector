@@ -7,14 +7,24 @@ const app = express();
 // Connect Database
 connectDB();
 
+const allowedOrigins = ['http://localhost:3000'];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true               
+  };
+
 // Init Middleware
 app.use(express.json());
-
-// Enable CORS
-app.use(cors({
-    origin: 'http://localhost:3000/', // Replace with your frontend domain
-    credentials: true, // Include this if you're using cookies or authorization headers
-  }));
+app.use(cors(corsOptions));
 
 // Define Routes
 app.use('/api/users', require('./routes/api/users'));
