@@ -1,5 +1,6 @@
 server/node_modules
 server/package-lock.json
-default.env
+server/config/default.json
 client/node_modules
 client/package-lock.json
+client/config/config.json
