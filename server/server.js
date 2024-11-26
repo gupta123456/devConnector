@@ -19,12 +19,13 @@ const corsOptions = {
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,               
+  credentials: true,
 };
 
 // Init Middleware
 app.use(express.json());
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // Define Routes
 app.use('/api/users', require('./routes/api/users'));
