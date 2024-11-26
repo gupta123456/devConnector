@@ -1,4 +1,4 @@
-import api from '../utils/api';
+import axios from 'axios';
 import { setAlert } from './alert';
 
 import {
@@ -12,12 +12,26 @@ import {
   NO_REPOS
 } from './types';
 
-/*
-  NOTE: we don't need a config object for axios as the
- default headers in axios are already Content-Type: application/json
- also axios stringifies and parses JSON for you, so no need for 
- JSON.stringify or JSON.parse
-*/
+
+// Setup Axios with live backend URL
+const api = axios.create({
+  baseURL: 'https://devconnector-backend-nslt.onrender.com/api',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Add interceptor to include token in headers
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['x-auth-token'] = token; // Attach token to headers
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 // Get current users profile
 export const getCurrentProfile = () => async (dispatch) => {
@@ -91,31 +105,31 @@ export const getGithubRepos = (username) => async (dispatch) => {
 // Create or update profile
 export const createProfile =
   (formData, edit = false) =>
-  async (dispatch) => {
-    try {
-      const res = await api.post('/profile', formData);
+    async (dispatch) => {
+      try {
+        const res = await api.post('/profile', formData);
 
-      dispatch({
-        type: GET_PROFILE,
-        payload: res.data
-      });
+        dispatch({
+          type: GET_PROFILE,
+          payload: res.data
+        });
 
-      dispatch(
-        setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success')
-      );
-    } catch (err) {
-      const errors = err.response.data.errors;
+        dispatch(
+          setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success')
+        );
+      } catch (err) {
+        const errors = err.response.data.errors;
 
-      if (errors) {
-        errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+        if (errors) {
+          errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+        }
+
+        dispatch({
+          type: PROFILE_ERROR,
+          payload: { msg: err.response.statusText, status: err.response.status }
+        });
       }
-
-      dispatch({
-        type: PROFILE_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status }
-      });
-    }
-  };
+    };
 
 // Add Experience
 export const addExperience = (formData) => async (dispatch) => {

@@ -1,13 +1,16 @@
-import api from './api';
+import axios from 'axios';
 
-// store our JWT in LS and set axios headers if we do have a token
-
+// Store our JWT in localStorage and set axios headers if we have a token
 const setAuthToken = (token) => {
   if (token) {
-    api.defaults.headers.common['x-auth-token'] = token;
+    // Set the default header with the token
+    axios.defaults.headers.common['x-auth-token'] = token;
+    // Store the token in localStorage
     localStorage.setItem('token', token);
   } else {
-    delete api.defaults.headers.common['x-auth-token'];
+    // Remove the default header if token is not provided
+    delete axios.defaults.headers.common['x-auth-token'];
+    // Remove the token from localStorage
     localStorage.removeItem('token');
   }
 };

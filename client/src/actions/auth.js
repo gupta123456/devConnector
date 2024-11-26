@@ -1,4 +1,4 @@
-import api from '../utils/api';
+import axios from 'axios';
 import { setAlert } from './alert';
 import {
   REGISTER_SUCCESS,
@@ -10,12 +10,27 @@ import {
   LOGOUT
 } from './types';
 
-/*
-  NOTE: we don't need a config object for axios as the
- default headers in axios are already Content-Type: application/json
- also axios stringifies and parses JSON for you, so no need for 
- JSON.stringify or JSON.parse
-*/
+
+// Setup Axios with live backend URL
+const api = axios.create({
+  baseURL: 'https://devconnector-backend-nslt.onrender.com/api',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Add interceptor to include token in headers
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['x-auth-token'] = token; // Attach token to headers
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 
 // Load User
 export const loadUser = () => async (dispatch) => {
@@ -62,7 +77,7 @@ export const login = (email, password) => async (dispatch) => {
 
   try {
     const res = await api.post('/auth', body);
-
+    localStorage.setItem('token', res.data);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
