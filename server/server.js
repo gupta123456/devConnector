@@ -7,7 +7,7 @@ const app = express();
 // Connect Database
 connectDB();
 
-const allowedOrigins = ['http://localhost:3000'];
+const allowedOrigins = ['http://localhost:3000', 'https://devconnector-frontend-m311.onrender.com'];
 
 const corsOptions = {
   origin: function (origin, callback) {
