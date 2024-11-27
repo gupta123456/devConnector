@@ -15,7 +15,7 @@ import {
 
 // Setup Axios with live backend URL
 const api = axios.create({
-  baseURL: 'https://devconnector-backend-nslt.onrender.com/api',
+  baseURL: 'https://devconnector-62hs.onrender.com/api',
   headers: {
     'Content-Type': 'application/json',
   },
