@@ -29,10 +29,9 @@ const Education = ({ education, deleteEducation }) => {
       <table className="table">
         <thead>
           <tr>
-            <th>School</th>
-            <th className="hide-sm">Degree</th>
-            <th className="hide-sm">Years</th>
-            <th />
+            <th className='text-dark'>School</th>
+            <th className="hide-sm text-dark">Degree</th>
+            <th className="hide-sm text-dark">Years</th>
           </tr>
         </thead>
         <tbody>{educations}</tbody>
